@@ -7,6 +7,7 @@ export const LightTheme = {
   colors: {
     ...MD3LightTheme.colors,
     ...lightColors,
+    outline: (lightColors as any).border,
   },
 };
 
@@ -15,6 +16,7 @@ export const DarkTheme = {
   colors: {
     ...MD3DarkTheme.colors,
     ...darkColors,
+    outline: (darkColors as any).border,
   },
 };
 
@@ -23,5 +25,6 @@ export const AmoledTheme = {
   colors: {
     ...MD3DarkTheme.colors,
     ...amoledColors,
+    outline: (amoledColors as any).border,
   },
 };

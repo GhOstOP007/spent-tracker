@@ -1,20 +1,44 @@
 export const lightColors = {
-  background: '#F5F7FA',
-  surface: '#FFFFFF',
-  text: '#1C1C1E',
-  primary: '#4F46E5',
-}
+  background: "#F5F5F7",
+  surface: "#FFFFFF",
+  card: "#FFFFFF",
+  text: "#1A1A1A",
+  text2: "#666666",
+  text3: "#AAAAAA",
+  border: "rgba(0,0,0,0.08)",
+  primary: "#6C63FF",
+  accent: "#6C63FF",
+  accent2: "#00D4AA",
+  danger: "#FF6B6B",
+  warning: "#FFB347",
+};
 
 export const darkColors = {
-  background: '#121212',
-  surface: '#1E1E1E',
-  text: '#FFFFFF',
-  primary: '#6366F1',
-}
+  background: "#000000",
+  surface: "#111111",
+  card: "#161616",
+  text: "#F0F0F0",
+  text2: "#999999",
+  text3: "#555555",
+  border: "rgba(255,255,255,0.08)",
+  primary: "#6C63FF",
+  accent: "#6C63FF",
+  accent2: "#00D4AA",
+  danger: "#FF6B6B",
+  warning: "#FFB347",
+};
 
 export const amoledColors = {
-  background: '#000000',
-  surface: '#111111',
-  text: '#FFFFFF',
-  primary: '#00E5FF',
-}
+  background: "#000000",
+  surface: "#111111",
+  card: "#161616",
+  text: "#F0F0F0",
+  text2: "#999999",
+  text3: "#555555",
+  border: "rgba(255,255,255,0.08)",
+  primary: "#6C63FF",
+  accent: "#6C63FF",
+  accent2: "#00D4AA",
+  danger: "#FF6B6B",
+  warning: "#FFB347",
+};

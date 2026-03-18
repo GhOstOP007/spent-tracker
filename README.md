@@ -8,10 +8,14 @@ A modern and intuitive mobile application built with React Native and Expo to he
 - **Dashboard Overview:** Get a quick overview of your finances with an interactive dashboard that displays:
     - Total amount spent.
     - Monthly budget progress.
-    - A pie chart visualizing spending by category.
+    - A donut/pie wheel visualizing spending by category.
     - A list of recent transactions.
-- **Add Expenses:** Quickly add new expenses through an intuitive modal, specifying the title, amount, and category.
-- **Data Persistence:** All expense data is securely stored and synchronized with a Supabase backend, ensuring your data is always up-to-date across sessions.
+- **Expenses:** Add and delete expenses with categories.
+- **Budgets:** Set an overall monthly budget and track progress.
+- **Subscriptions (tracking):** Track recurring subscriptions (no payments) with next due dates.
+- **Goals:** Create goals and add contributions.
+- **Auth:** Email/password login via Supabase.
+- **Sync:** Data stored and secured in Supabase with Row Level Security.
 - **Theming:** Personalize your experience with three available themes: Light, Dark, and AMOLED.
 - **State Management:** Utilizes Zustand for efficient and minimalistic state management.
 - **Modern UI:** Built with React Native Paper, providing a polished and consistent user interface.
@@ -24,7 +28,7 @@ A modern and intuitive mobile application built with React Native and Expo to he
 - **Navigation:** React Navigation
 - **State Management:** Zustand
 - **Backend & Database:** Supabase
-- **Charting:** React Native Chart Kit
+- **Charting:** Victory (donut/pie)
 - **Styling:** StyleSheet, React Native Paper Theming
 
 ## Project Structure
@@ -66,25 +70,17 @@ Follow these instructions to get the project up and running on your local machin
 
 3.  **Set up Supabase:**
     - Create a new project on [Supabase](https://supabase.com/).
-    - In your Supabase project, create a new table named `expenses` with the following columns:
-      - `id` (uuid, primary key)
-      - `created_at` (timestamptz, default: `now()`)
-      - `title` (text)
-      - `amount` (float8)
-      - `category` (text)
-      - `date` (timestamptz)
+    - Apply the SQL migration in `supabase/migrations/0001_init.sql` (SQL Editor is fine).
+    - Enable **Email** auth in Supabase Auth settings.
     - Find your Project URL and anon (public) key in your Supabase project's API settings.
-    - Update `src/supabase.ts` with your Supabase URL and Key.
+    - Create a `.env` file with:
 
-    ```typescript
-    // src/supabase.ts
-    import { createClient } from "@supabase/supabase-js";
-
-    const SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL";
-    const SUPABASE_KEY = "YOUR_SUPABASE_ANON_KEY";
-
-    export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+    ```bash
+    EXPO_PUBLIC_SUPABASE_URL=...
+    EXPO_PUBLIC_SUPABASE_ANON_KEY=...
     ```
+
+    The client is initialized in `src/supabase.ts` using `EXPO_PUBLIC_*` env vars.
 
 ### Running the App
 

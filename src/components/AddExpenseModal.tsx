@@ -11,6 +11,7 @@ import {
 import { Modal, Button, Chip } from "react-native-paper";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useExpenseStore } from "../store/expenseStore";
+import { useCategoryStore } from "../store/categoryStore";
 import { useThemeStore } from "../store/themeStore";
 import { LightTheme, DarkTheme, AmoledTheme } from "../theme/theme";
 
@@ -19,13 +20,12 @@ interface AddExpenseModalProps {
   onClose: () => void;
 }
 
-const categories = ["Food", "Transport", "Shopping", "Bills", "Others"];
-
 export default function AddExpenseModal({
   visible,
   onClose,
 }: AddExpenseModalProps) {
   const { addExpense } = useExpenseStore();
+  const { categories, loadCategories } = useCategoryStore();
   const { theme } = useThemeStore();
 
   const selectedTheme =
@@ -33,26 +33,32 @@ export default function AddExpenseModal({
 
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
-  const [category, setCategory] = useState("");
+  const [categoryId, setCategoryId] = useState<string | null>(null);
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
 
+  React.useEffect(() => {
+    if (!visible) return;
+    loadCategories();
+  }, [visible]);
+
   const handleSave = () => {
-    if (!title || !amount || !category) {
+    if (!title || !amount || !categoryId) {
       alert("Please fill all fields");
       return;
     }
 
     addExpense({
-      title,
       amount: parseFloat(amount),
-      category,
+      category_id: categoryId,
+      occurred_at: date,
+      note: title,
     });
 
     // Reset fields
     setTitle("");
     setAmount("");
-    setCategory("");
+    setCategoryId(null);
     setDate(new Date());
 
     onClose();
@@ -116,23 +122,23 @@ export default function AddExpenseModal({
         <View style={styles.categoryContainer}>
           {categories.map((cat) => (
             <Chip
-              key={cat}
-              selected={category === cat}
-              onPress={() => setCategory(cat)}
+              key={cat.id}
+              selected={categoryId === cat.id}
+              onPress={() => setCategoryId(cat.id)}
               style={[
                 styles.chip,
                 {
                   backgroundColor:
-                    category === cat
+                    categoryId === cat.id
                       ? selectedTheme.colors.primary
                       : selectedTheme.colors.surface,
                 },
               ]}
               textStyle={{
-                color: category === cat ? "#fff" : selectedTheme.colors.text,
+                color: categoryId === cat.id ? "#fff" : selectedTheme.colors.text,
               }}
             >
-              {cat}
+              {cat.name}
             </Chip>
           ))}
         </View>
